@@ -14,7 +14,7 @@ public class Contact {
 	private String password;
 
 	private String sex;
-	@Past(message = "")
+	@Past(message = "Past time")
 	private Date birthday;
 
 	private String address;
