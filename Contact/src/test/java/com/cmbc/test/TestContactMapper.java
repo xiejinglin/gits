@@ -24,4 +24,25 @@ public class TestContactMapper {
 		System.out.println(JSON.toJSONStringWithDateFormat(contact, "yyyy-MM-dd"));
 
 	}
+	
+	
+	@Test
+	public void testGetContactByNamePwd() {
+
+		Contact contact = contactMapper.getByNamePwd("test", "test");
+		System.out.println(JSON.toJSONStringWithDateFormat(contact, "yyyy-MM-dd"));
+
+	}
+	
+	@Test
+	public void testChangePwd() {
+
+		int id = 2;
+		String oldPwd = "test";
+		String newPwd = "test2";
+		int i = contactMapper.changePwd(id, oldPwd, newPwd);
+		System.out.println(i);
+	}
+	
+	
 }

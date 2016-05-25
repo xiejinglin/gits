@@ -38,7 +38,7 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public Contact login(String name, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		return contactMapper.getByNamePwd(name, password);
 	}
 
 	@Override

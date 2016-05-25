@@ -14,4 +14,8 @@ public interface ContactMapper {
     int updateByPrimaryKeySelective(Contact record);
 
     int updateByPrimaryKey(Contact record);
+    
+    Contact getByNamePwd(String name,String password);
+    
+    int changePwd(int id,String oldPwd,String newPwd);
 }
