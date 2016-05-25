@@ -51,6 +51,15 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public Contact login(String name, String password) {
 		// TODO Auto-generated method stub
+		try {
+			password = MD5.getMd5(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return contactMapper.getByNamePwd(name, password);
 	}
 
