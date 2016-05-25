@@ -1,10 +1,14 @@
 package com.cmbc.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cmbc.dao.ContactMapper;
 import com.cmbc.po.Contact;
+import com.cmbc.util.MD5;
 @Service
 public class ContactServiceImpl implements ContactService{
 
@@ -32,6 +36,15 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public int reg(Contact contact) {
 		// TODO Auto-generated method stub
+		try {
+			contact.setPassword(MD5.getMd5(contact.getPassword()));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return contactMapper.insertSelective(contact);
 	}
 
@@ -44,7 +57,18 @@ public class ContactServiceImpl implements ContactService{
 	@Override
 	public int changePwd(int id, String oldPwd, String newPwd) {
 		// TODO Auto-generated method stub
-		return 0;
+		try {
+			oldPwd = MD5.getMd5(oldPwd);
+			newPwd = MD5.getMd5(newPwd);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return contactMapper.changePwd(id, oldPwd, newPwd);
 	}
 
 }

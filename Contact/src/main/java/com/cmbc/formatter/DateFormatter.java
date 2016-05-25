@@ -7,13 +7,11 @@ import java.util.Locale;
 
 import org.springframework.format.Formatter;
 
-public class DateFormatter implements Formatter<Date>{
+public class DateFormatter implements Formatter<Date> {
 
 	private String datePattern;
 	private SimpleDateFormat dateFormat;
-	
-	
-	
+
 	public DateFormatter(String datePattern) {
 		this.datePattern = datePattern;
 		dateFormat = new SimpleDateFormat(datePattern);

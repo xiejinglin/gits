@@ -117,10 +117,10 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<update id="updateByPrimaryKey">
+	<update id="changePwd" >
 		update contact
 		set
-		password = #{2},
+		password = #{2}
 		where id = #{0} and password = #{1}
 	</update>
 
