@@ -13,6 +13,8 @@
 	<br>
 
 	<a href="update_form/${contact.id }.do">${contact.name }</a>
+	
+	<a href="changePwd_form/${contact.id }.do">修改密码</a>
 
 </body>
 </html>

@@ -54,11 +54,16 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/login")
-	public String login(@ModelAttribute Contact contact,Model model) {
+	public String login(@ModelAttribute Contact contact, Model model) {
 		logger.info("login method invoked and received the param :" + JSON.toJSONString(contact));
 		contact = contactService.login(contact.getName(), contact.getPassword());
 		logger.info("login status :" + JSON.toJSONStringWithDateFormat(contact, "yyyy-MM-dd"));
-		model.addAttribute("contact",contact);
+		if (contact == null) {
+			model.addAttribute("contact", new Contact());
+			model.addAttribute("loginMsg", "您输入法的密码有误");
+			return "loginform";
+		}
+		model.addAttribute("contact", contact);
 		return "personalMsg";
 	}
 
@@ -81,5 +86,23 @@ public class ContactController {
 		int updateResult = contactService.update(contact);
 		logger.info("update status : " + updateResult);
 		return "personalMsg";
+	}
+
+	@RequestMapping(value = "/changePwd_form/{id}")
+	public String getChangePwdForm(@PathVariable int id, Model model) {
+		logger.info("getChangePwdForm method invoked and received the param : " + id);
+		Contact contact = new Contact();
+		contact.setId(id);
+		model.addAttribute("contact", contact);
+		return "changepwd";
+	}
+
+	@RequestMapping(value = "/changePwd")
+	public String changePwd(@ModelAttribute Contact contact, String newPwd) {
+		logger.info("changePwd method invoked and receive the param : id=" + contact.getId() + ",oldPwd = "
+				+ contact.getPassword() + ",newPwd =" + newPwd);
+		int changePwdResult = contactService.changePwd(contact.getId(), contact.getPassword(), newPwd);
+		logger.info("changePwd method status : " + changePwdResult);
+		return "redirect:/contact/login_form.do";
 	}
 }

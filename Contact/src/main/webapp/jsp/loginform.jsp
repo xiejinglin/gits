@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	${loginMsg }
 	<form:form commandName="contact" action="login.do" method="post">
 
 	name:<form:input path="name" />
