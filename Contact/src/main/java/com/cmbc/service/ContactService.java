@@ -1,5 +1,7 @@
 package com.cmbc.service;
 
+import java.util.List;
+
 import com.cmbc.po.Contact;
 
 public interface ContactService {
@@ -15,4 +17,6 @@ public interface ContactService {
 	Contact login(String name,String password);
 	
 	int changePwd(int id,String oldPwd,String newPwd);
+	
+	List<Contact> getContacts();
 }

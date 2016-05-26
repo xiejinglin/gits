@@ -12,12 +12,29 @@
 	<sql id="Base_Column_List">
 		id, name, password, sex, birthday, address
 	</sql>
+	
+	<sql id="Base_Column_List2">
+		id, name, sex, birthday, address
+	</sql>
+	<resultMap id="BaseResultMap2" type="com.cmbc.po.Contact">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+	</resultMap>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from contact
 		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="getContacts" resultMap="BaseResultMap2">
+		select
+		<include refid="Base_Column_List2" />
+		from contact
 	</select>
 
 	<select id="getByNamePwd" resultMap="BaseResultMap"
@@ -31,16 +48,20 @@
 
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from contact
+		delete from
+		contact
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.cmbc.po.Contact">
-		insert into contact (id, name, password,
+		insert into contact (id, name,
+		password,
 		sex, birthday, address
 		)
-		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		values (#{id,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
-		#{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}
+		#{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+		#{address,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.cmbc.po.Contact">
@@ -109,19 +130,25 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.cmbc.po.Contact">
 		update contact
-		set name = #{name,jdbcType=VARCHAR},
-		password = #{password,jdbcType=VARCHAR},
+		set
+		name = #{name,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
 		sex = #{sex,jdbcType=VARCHAR},
-		birthday = #{birthday,jdbcType=DATE},
+		birthday =
+		#{birthday,jdbcType=DATE},
 		address = #{address,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=INTEGER}
+		where
+		id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<update id="changePwd" >
+	<update id="changePwd">
 		update contact
 		set
 		password = #{2}
-		where id = #{0} and password = #{1}
+		where id
+		= #{0} and
+		password = #{1}
 	</update>
 
 

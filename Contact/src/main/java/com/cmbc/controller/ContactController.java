@@ -1,5 +1,7 @@
 package com.cmbc.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -104,5 +106,20 @@ public class ContactController {
 		int changePwdResult = contactService.changePwd(contact.getId(), contact.getPassword(), newPwd);
 		logger.info("changePwd method status : " + changePwdResult);
 		return "redirect:/contact/login_form.do";
+	}
+
+	@RequestMapping(value = "/contact_list")
+	public String getContacts(Model model) {
+		logger.info("getContacts method invoked");
+		List<Contact> contacts = contactService.getContacts();
+		model.addAttribute("contacts", contacts);
+		return "contactlist";
+	}
+
+	@RequestMapping(value="/contact_delete/{id}")
+	public String delete(@PathVariable int id){
+		logger.info("delete method invoked and receive the param : "+id);
+		contactService.delete(id);
+		return "redirect:/contact/contact_list.do";
 	}
 }

@@ -2,6 +2,7 @@ package com.cmbc.service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,12 @@ public class ContactServiceImpl implements ContactService{
 		}
 			
 		return contactMapper.changePwd(id, oldPwd, newPwd);
+	}
+
+	@Override
+	public List<Contact> getContacts() {
+		// TODO Auto-generated method stub
+		return contactMapper.getContacts();
 	}
 
 }

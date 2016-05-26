@@ -1,5 +1,7 @@
 package com.cmbc.dao;
 
+import java.util.List;
+
 import com.cmbc.po.Contact;
 
 public interface ContactMapper {
@@ -18,4 +20,6 @@ public interface ContactMapper {
     Contact getByNamePwd(String name,String password);
     
     int changePwd(int id,String oldPwd,String newPwd);
+    
+    List<Contact> getContacts();
 }
