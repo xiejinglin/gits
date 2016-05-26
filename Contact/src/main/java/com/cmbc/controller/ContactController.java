@@ -45,7 +45,7 @@ public class ContactController {
 		int regResult = contactService.reg(contact);
 		logger.info("reg status :" + regResult);
 		model.addAttribute("contact", contact);
-		return "";
+		return "redirect:/contact/login_form.do";
 	}
 
 	@RequestMapping(value = "/login_form")
