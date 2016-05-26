@@ -10,7 +10,7 @@
 <body>
 
 
-	<form:form commandName="contact" action="update.do" method="post">
+	<form:form commandName="contact" action="/Contact/contact/update.do" method="post">
 		<form:hidden path="id" />
 			name:
 			<form:input path="name" />

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
@@ -53,11 +54,32 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/login")
-	public String login(@ModelAttribute Contact contact) {
+	public String login(@ModelAttribute Contact contact,Model model) {
 		logger.info("login method invoked and received the param :" + JSON.toJSONString(contact));
 		contact = contactService.login(contact.getName(), contact.getPassword());
 		logger.info("login status :" + JSON.toJSONStringWithDateFormat(contact, "yyyy-MM-dd"));
+		model.addAttribute("contact",contact);
 		return "personalMsg";
 	}
 
+	@RequestMapping(value = "/update_form/{id}")
+	public String getUpdateForm(@PathVariable int id, Model model) {
+		logger.info("getUpdateForm method invoked and receive the param : " + id);
+		Contact contact = contactService.getContact(id);
+		logger.info("get contacgt by the id : " + contact);
+		model.addAttribute("contact", contact);
+		return "updateform";
+	}
+
+	@RequestMapping(value = "/update")
+	public String update(@ModelAttribute @Valid Contact contact, BindingResult bindingResult, Model model) {
+		logger.info("update method invoked and receive the param : "
+				+ JSON.toJSONStringWithDateFormat(contact, "yyyy-MM-dd"));
+		if (bindingResult.hasErrors()) {
+			return "updateform";
+		}
+		int updateResult = contactService.update(contact);
+		logger.info("update status : " + updateResult);
+		return "personalMsg";
+	}
 }
